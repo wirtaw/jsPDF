@@ -30,10 +30,10 @@
 		}
 		function doPdf() {
 
-			var pdf = new jsPDF('l', 'pt', 'letter');
+			const pdf = new jsPDF('l', 'pt', 'letter');
 			pdf.html(document.body, {
 				callback: function (pdf) {
-					var iframe = document.createElement('iframe');
+					const iframe = document.createElement('iframe');
 					iframe.setAttribute('style', 'position:absolute;right:0; top:0; bottom:0; height:100%; width:500px');
 					document.body.appendChild(iframe);
 					iframe.src = pdf.output('datauristring');

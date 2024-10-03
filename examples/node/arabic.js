@@ -1,11 +1,11 @@
 const fs = require("fs");
 const jsPDF = require("../../dist/jspdf.node.debug");
 
-var AmiriRegular = fs.readFileSync("../../test/reference/Amiri-Regular.ttf", {
+const AmiriRegular = fs.readFileSync("../../test/reference/Amiri-Regular.ttf", {
   encoding: "latin1"
 });
 
-var doc = new jsPDF({ compress: true });
+const doc = new jsPDF({ compress: true });
 doc.addFileToVFS("Amiri-Regular.ttf", AmiriRegular);
 doc.addFont("Amiri-Regular.ttf", "Amiri", "normal");
 

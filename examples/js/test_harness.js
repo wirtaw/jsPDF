@@ -110,7 +110,7 @@ var pdf_test_harness_init = function(pdf, message) {
   return harness;
 };
 
-var pdf_test_harness = function(pdf) {
+const pdf_test_harness = function(pdf) {
   this.pdf = pdf;
   this.onload = undefined;
   this.iframe = undefined;

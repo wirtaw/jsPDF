@@ -1,4 +1,4 @@
-var doc = new jsPDF({
+const doc = new jsPDF({
   unit: "px",
   format: [200, 300],
   floatPrecision: 2

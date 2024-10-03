@@ -69,11 +69,11 @@ function demoTextColors() {
   doc.text(20, 60, "This is blue.");
 
   // Output as Data URI
-  doc.output("datauri");
+  doc.save('demoTextColors.pdf');
 }
 
 function demoMetadata() {
-  var doc = new jsPDF();
+  const doc = new jsPDF();
   doc.text(
     20,
     20,
@@ -89,22 +89,22 @@ function demoMetadata() {
     creator: "MEEE"
   });
 
-  doc.save("Test.pdf");
+  doc.save("demoMetadata.pdf");
 }
 
 function demoUserInput() {
-  var name = prompt("What is your name?");
-  var multiplier = prompt("Enter a number:");
-  multiplier = parseInt(multiplier);
+  const name = prompt("What is your name?");
+  const multiplier = prompt("Enter a number:");
+  const number = parseInt(multiplier);
 
-  var doc = new jsPDF();
+  const doc = new jsPDF();
   doc.setFontSize(22);
   doc.text(20, 20, "Questions");
   doc.setFontSize(16);
-  doc.text(20, 30, "This belongs to: " + name);
+  doc.text(20, 30, `This belongs to: ${name}`);
 
-  for (var i = 1; i <= 12; i++) {
-    doc.text(20, 30 + i * 10, i + " x " + multiplier + " = ___");
+  for (let i = 1; i <= 12; i++) {
+    doc.text(20, 30 + i * 10, `${i} x ${number} = ___`);
   }
 
   doc.addPage();
@@ -112,14 +112,15 @@ function demoUserInput() {
   doc.text(20, 20, "Answers");
   doc.setFontSize(16);
 
-  for (i = 1; i <= 12; i++) {
-    doc.text(20, 30 + i * 10, i + " x " + multiplier + " = " + i * multiplier);
+  for (let i = 1; i <= 12; i++) {
+    doc.text(20, 30 + i * 10, `${multiplier} x ${multiplier * i} = ___`);
   }
-  doc.save("Test.pdf");
+
+  doc.save("demoUserInput.pdf");
 }
 
 function demoRectangles() {
-  var doc = new jsPDF();
+  const doc = new jsPDF();
 
   doc.rect(20, 20, 10, 10); // empty square
 
@@ -143,11 +144,11 @@ function demoRectangles() {
   doc.setFillColor(255, 255, 255);
   doc.roundedRect(140, 20, 10, 10, 3, 3, "FD"); //  Black square with rounded corners
 
-  doc.save("Test.pdf");
+  doc.save("demoRectangles.pdf");
 }
 
 function demoLines() {
-  var doc = new jsPDF();
+  const doc = new jsPDF();
 
   doc.line(20, 20, 60, 20); // horizontal line
 
@@ -174,12 +175,11 @@ function demoLines() {
   doc.setLineWidth(1.5);
   doc.line(115, 20, 115, 60);
 
-  // Output as Data URI
-  doc.output("datauri");
+  doc.save("demoLines.pdf");
 }
 
 function demoCircles() {
-  var doc = new jsPDF();
+  const doc = new jsPDF();
 
   doc.ellipse(40, 20, 10, 5);
 
@@ -191,11 +191,11 @@ function demoCircles() {
   doc.setFillColor(255, 0, 0);
   doc.circle(120, 20, 5, "FD");
 
-  doc.save("Test.pdf");
+  doc.save("demoCircles.pdf");
 }
 
 function demoTriangles() {
-  var doc = new jsPDF();
+  const doc = new jsPDF();
 
   doc.triangle(60, 100, 60, 120, 80, 110, "FD");
 
@@ -204,7 +204,7 @@ function demoTriangles() {
   doc.setFillColor(0, 0, 255);
   doc.triangle(100, 100, 110, 100, 120, 130, "FD");
 
-  doc.save("Test.pdf");
+  doc.save("demoTriangles.pdf");
 }
 
 function demoImages() {
@@ -213,9 +213,9 @@ function demoImages() {
   // security restrictions that prevent it from loading images
   // when running local files.  Run with: chromium --allow-file-access-from-files --allow-file-access
   // to temporarily get around this issue.
-  var getImageFromUrl = function(url, callback) {
-    var img = new Image(),
-      data,
+  const getImageFromUrl = function(url, callback) {
+    let data = '';
+    const img = new Image(),
       ret = {
         data: null,
         pending: true
@@ -225,12 +225,12 @@ function demoImages() {
       throw new Error('Cannot load image: "' + url + '"');
     };
     img.onload = function() {
-      var canvas = document.createElement("canvas");
+      const canvas = document.createElement("canvas");
       document.body.appendChild(canvas);
       canvas.width = img.width;
       canvas.height = img.height;
 
-      var ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d");
       ctx.drawImage(img, 0, 0);
       // Grab the image as a jpeg encoded in base64, but only the data
       data = canvas
@@ -255,34 +255,53 @@ function demoImages() {
   // the pdf until we actually have the image data.
   // If we already had the jpeg image binary data loaded into
   // a string, we create the pdf without delay.
-  var createPDF = function(imgData) {
-    var doc = new jsPDF();
+  const createPDF = function(imgData) {
+    const doc = new jsPDF();
 
     doc.addImage(imgData, "JPEG", 10, 10, 50, 50);
     doc.addImage(imgData, "JPEG", 70, 10, 100, 120);
 
-    doc.save("output.pdf");
+    doc.addImage({
+      imageData : imgData,
+      angle     : -20,
+      x         : 10,
+      y         : 78,
+      w         : 45,
+      h         : 58
+  });
+
+    doc.save("demoImages.pdf");
   };
 
   getImageFromUrl("thinking-monkey.jpg", createPDF);
 }
 
 function demoStringSplitting() {
-  var pdf = new jsPDF("p", "in", "letter"),
-    sizes = [12, 16, 20],
-    fonts = [
-      ["Times", "Roman"],
-      ["Helvetica", ""],
-      ["Times", "Italic"]
-    ],
-    font,
-    size,
-    lines,
+  const fonts = [
+    {
+      name: "Times",
+      type: "Roman",
+      size: 12,
+    },
+    {
+      name: "Helvetica",
+      type: "",
+      size: 16,
+    },
+    {
+      name: "Times",
+      type: "Italic",
+      size: 20,
+    }
+  ];
+  const pdf = new jsPDF("p", "in", "letter"),
     margin = 0.5, // inches on a 8.5 x 11 inch sheet.
-    verticalOffset = margin,
     loremipsum =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id eros turpis. Vivamus tempor urna vitae sapien mollis molestie. Vestibulum in lectus non enim bibendum laoreet at at libero. Etiam malesuada erat sed sem blandit in varius orci porttitor. Sed at sapien urna. Fusce augue ipsum, molestie et adipiscing at, varius quis enim. Morbi sed magna est, vel vestibulum urna. Sed tempor ipsum vel mi pretium at elementum urna tempor. Nulla faucibus consectetur felis, elementum venenatis mi mollis gravida. Aliquam mi ante, accumsan eu tempus vitae, viverra quis justo.\n\nProin feugiat augue in augue rhoncus eu cursus tellus laoreet. Pellentesque eu sapien at diam porttitor venenatis nec vitae velit. Donec ultrices volutpat lectus eget vehicula. Nam eu erat mi, in pulvinar eros. Mauris viverra porta orci, et vehicula lectus sagittis id. Nullam at magna vitae nunc fringilla posuere. Duis volutpat malesuada ornare. Nulla in eros metus. Vivamus a posuere libero.";
 
+
+  let verticalOffset = margin; 
+  let lines;  
   // Margins:
   pdf
     .setDrawColor(0, 255, 0)
@@ -291,36 +310,32 @@ function demoStringSplitting() {
     .line(8.5 - margin, margin, 8.5 - margin, 11 - margin);
 
   // the 3 blocks of text
-  for (var i in fonts) {
-    if (fonts.hasOwnProperty(i)) {
-      font = fonts[i];
-      size = sizes[i];
+  for (let { name, type, size} of fonts) {
 
-      lines = pdf
-        .setFont(font[0], font[1])
-        .setFontSize(size)
-        .splitTextToSize(loremipsum, 7.5);
-      // Don't want to preset font, size to calculate the lines?
-      // .splitTextToSize(text, maxsize, options)
-      // allows you to pass an object with any of the following:
-      // {
-      // 	'fontSize': 12
-      // 	, 'fontStyle': 'Italic'
-      // 	, 'fontName': 'Times'
-      // }
-      // Without these, .splitTextToSize will use current / default
-      // font Family, Style, Size.
-      pdf.text(0.5, verticalOffset + size / 72, lines);
+    lines = pdf
+      .setFont(name, type)
+      .setFontSize(size)
+      .splitTextToSize(loremipsum, 7.5);
+    // Don't want to preset font, size to calculate the lines?
+    // .splitTextToSize(text, maxsize, options)
+    // allows you to pass an object with any of the following:
+    // {
+    // 	'fontSize': 12
+    // 	, 'fontStyle': 'Italic'
+    // 	, 'fontName': 'Times'
+    // }
+    // Without these, .splitTextToSize will use current / default
+    // font Family, Style, Size.
+    pdf.text(0.5, verticalOffset + size / 72, lines);
 
-      verticalOffset += ((lines.length + 0.5) * size) / 72;
-    }
+    verticalOffset += ((lines.length + 0.5) * size) / 72;
   }
 
-  pdf.save("Test.pdf");
+  pdf.save("demoStringSplitting.pdf");
 }
 
 function demoTextAlign() {
-  var pdf = new jsPDF("p", "pt", "letter");
+  const pdf = new jsPDF("p", "pt", "letter");
 
   pdf.setFillColor(0);
   pdf.circle(140, 50, 2, "F");
@@ -350,7 +365,7 @@ function demoTextAlign() {
   pdf.circle(460, 200, 2, "F");
   pdf.text("This right aligned text\r\rhas an empty line.", 460, 200, "right");
 
-  pdf.save("Test.pdf");
+  pdf.save("demoTextAlign.pdf");
 }
 
 function demoUsingTTFFont() {
@@ -366,5 +381,5 @@ function demoUsingTTFFont() {
 
   doc.text("إذا لم تستح فاصنع ما شئت", 10, 10);
 
-  doc.save("test.pdf");
+  doc.save("demoUsingTTFFont.pdf");
 }

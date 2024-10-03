@@ -1,14 +1,15 @@
-var name = prompt("What is your name?");
-var multiplier = parseInt(prompt("Enter a number:"), 10);
+const name = prompt("What is your name?");
+const multiplier = prompt("Enter a number:");
+const number = parseInt(multiplier);
 
-var doc = new jsPDF();
+const doc = new jsPDF();
 doc.setFontSize(22);
 doc.text(20, 20, "Questions");
 doc.setFontSize(16);
-doc.text(20, 30, "This belongs to: " + name);
+doc.text(20, 30, `This belongs to: ${name}`);
 
-for (var i = 1; i <= 12; i++) {
-  doc.text(20, 30 + i * 10, i + " x " + multiplier + " = ___");
+for (let i = 1; i <= 12; i++) {
+  doc.text(20, 30 + i * 10, `${i} x ${number} = ___`);
 }
 
 doc.addPage();
@@ -16,8 +17,8 @@ doc.setFontSize(22);
 doc.text(20, 20, "Answers");
 doc.setFontSize(16);
 
-for (var i = 1; i <= 12; i++) {
-  doc.text(20, 30 + i * 10, i + " x " + multiplier + " = " + i * multiplier);
+for (let i = 1; i <= 12; i++) {
+  doc.text(20, 30 + i * 10, `${multiplier} x ${multiplier * i} = ___`);
 }
 
 // You wouldn't normally call this - this is just to make the

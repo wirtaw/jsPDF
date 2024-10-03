@@ -3,11 +3,11 @@
 const fs = require("fs");
 const jsPDF = require("../../dist/jspdf.node.min");
 
-var MouhitsuBold = fs.readFileSync("../../test/reference/MouhitsuBold.ttf", {
+const MouhitsuBold = fs.readFileSync("../../test/reference/MouhitsuBold.ttf", {
   encoding: "latin1"
 });
 
-var doc = new jsPDF({ compress: true });
+const doc = new jsPDF({ compress: true });
 
 doc.addFileToVFS("MouhitsuBold.ttf", MouhitsuBold);
 doc.addFont("MouhitsuBold.ttf", "Mouhitsu", "bold");

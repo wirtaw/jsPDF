@@ -1,9 +1,9 @@
 const fs = require("fs");
 const jsPDF = require("../../dist/jspdf.node.min");
 
-var Octocat = fs.readFileSync("../images/Octocat.png", { encoding: "latin1" });
+const Octocat = fs.readFileSync("../images/Octocat.png", { encoding: "latin1" });
 
-var doc = new jsPDF();
+const doc = new jsPDF();
 
 doc.setFontSize(40);
 doc.text("Octocat loves jsPDF", 40, 30, 4);

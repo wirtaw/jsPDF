@@ -1,4 +1,4 @@
-var doc = new jsPDF();
+const doc = new jsPDF();
 
 doc.addFont("test/reference/MouhitsuBold.ttf", "Mouhitsu", "bold");
 

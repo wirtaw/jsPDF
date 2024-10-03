@@ -1,5 +1,5 @@
 /* global jsPDF */
-var doc = new jsPDF();
+const doc = new jsPDF();
 
 doc.ellipse(40, 20, 10, 5);
 
