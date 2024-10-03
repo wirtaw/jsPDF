@@ -6,10 +6,12 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.17.custom.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/default.min.css" integrity="sha512-hasIneQUHlh06VNBe7f6ZcHmeRTLIaQWFd43YriJ0UND19bvYRauxthDg8E4eVNPm9bRUhr5JGeqH7FRFXQu5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" type="text/css" href="css/main.css">
 
   <script type="text/javascript" src="js/jquery/jquery-1.7.1.min.js"></script>
   <script type="text/javascript" src="js/jquery/jquery-ui-1.8.17.custom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js" integrity="sha512-6yoqbrcLAHDWAdQmiRlHG4+m0g/CT/V9AGyxabG8j7Jk8j3r3K6due7oqpiRMZqcYe9WM2gPcaNNxnl2ux+3tA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type="text/javascript" src="../dist/jspdf.umd.js"></script>
   <script type="text/javascript" src="js/basic.js"></script>
 
@@ -52,30 +54,33 @@
         <h2><a href="#">Simple two-page text document</a></h2>
         <div>
           <p>
-            <pre>var doc = new jsPDF();
+            <pre><code class="language-javascript">const doc = new jsPDF();
+
 doc.text(20, 20, 'Hello world!');
 doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
 doc.addPage();
 doc.text(20, 20, 'Do you like that?');
 
-doc.save('Test.pdf');</pre>
+doc.save('demoTwoPageDocument.pdf');</code></pre>
             <a href="javascript:demoTwoPageDocument()" class="button">Run Code</a></p>
         </div>
 
         <h2><a href="#">Landscape document</a></h2>
         <div>
           <p>
-            <pre>var doc = new jsPDF('landscape');
+            <pre><code class="language-javascript">const doc = new jsPDF('landscape');
+
 doc.text(20, 20, 'Hello landscape world!');
 
-doc.save('Test.pdf');</pre>
+doc.save('demoLandscape.pdf');</code></pre>
             <a href="javascript:demoLandscape()" class="button">Run Code</a></p>
         </div>
 
         <h2><a href="#">Adding metadata</a></h2>
         <div>
           <p>
-            <pre>var doc = new jsPDF();
+            <pre><code class="language-javascript">const doc = new jsPDF();
+
 doc.text(20, 20, 'This PDF has a title, subject, author, keywords and a creator.');
 
 // Optional - set properties on the document
@@ -88,25 +93,26 @@ doc.setProperties({
 });
 
 // Output as Data URI
-doc.save('Test.pdf');</pre>
+doc.save('Test.pdf');</code></pre>
             <a href="javascript:demoMetadata()" class="button">Run Code</a></p>
         </div>
 
         <h2><a href="#">Example of user input</a></h2>
         <div>
           <p>
-            <pre>var name = prompt('What is your name?');
-var multiplier = prompt('Enter a number:');
+            <pre><code class="language-javascript">const name = prompt('What is your name?');
+const multiplier = prompt('Enter a number:');
 multiplier = parseInt(multiplier);
 
-var doc = new jsPDF();
+const doc = new jsPDF();
+
 doc.setFontSize(22);
 doc.text(20, 20, 'Questions');
 doc.setFontSize(16);
 doc.text(20, 30, 'This belongs to: ' + name);
 
-for(var i = 1; i <= 12; i ++) {
-    doc.text(20, 30 + (i * 10), i + ' x ' + multiplier + ' = ___');
+for(let i = 1; i <= 12; i ++) {
+    doc.text(20, 30 + (i * 10), `${i} x ${multiplier} = ___`);
 }
 
 doc.addPage();
@@ -114,10 +120,10 @@ doc.setFontSize(22);
 doc.text(20, 20, 'Answers');
 doc.setFontSize(16);
 
-for(var i = 1; i <= 12; i ++) {
+for(const i = 1; i <= 12; i ++) {
     doc.text(20, 30 + (i * 10), i + ' x ' + multiplier + ' = ' + (i * multiplier));
 }
-doc.save('Test.pdf');</pre>
+doc.save('Test.pdf');</code></pre>
             <a href="javascript:demoUserInput()" class="button">Run Code</a></p>
         </div>
       </div>
@@ -128,14 +134,15 @@ doc.save('Test.pdf');</pre>
         <h2><a href="#">Different font sizes</a></h2>
         <div>
           <p>
-            <pre>var doc = new jsPDF();
+            <pre><code class="language-javascript">const doc = new jsPDF();
+
 doc.setFontSize(22);
 doc.text(20, 20, 'This is a title');
 
 doc.setFontSize(16);
 doc.text(20, 30, 'This is some normal sized text underneath.');
 
-doc.save('Test.pdf');</pre>
+doc.save('demoFontSizes.pdf');</code></pre>
             <a href="javascript:demoFontSizes()" class="button">Run Code</a>
           </p>
         </div>
@@ -143,33 +150,31 @@ doc.save('Test.pdf');</pre>
         <h2><a href="#">Different font types</a></h2>
         <div>
           <p>
-            <pre>var doc = new jsPDF();
+            <pre><code class="language-javascript">const doc = new jsPDF();
 
-doc.text(20, 20, 'This is the default font.');
+doc.text(20, 20, "This is the default font.");
 
-doc.setFont("courier");
-doc.text(20, 30, 'This is courier normal.');
+doc.setFont("courier", "normal");
+doc.text(20, 30, "This is courier normal.");
 
-doc.setFont("times");
-doc.setFontType("italic");
-doc.text(20, 40, 'This is times italic.');
+doc.setFont("times", "italic");
+doc.text(20, 40, "This is times italic.");
 
-doc.setFont("helvetica");
-doc.setFontType("bold");
-doc.text(20, 50, 'This is helvetica bold.');
+doc.setFont("helvetica", "bold");
 
-doc.setFont("courier");
-doc.setFontType("bolditalic");
-doc.text(20, 60, 'This is courier bolditalic.');
+doc.text(20, 50, "This is helvetica bold.");
 
-doc.save('Test.pdf');</pre>
+doc.setFont("courier", "bolditalic");
+doc.text(20, 60, "This is courier bolditalic.");
+
+doc.save("demoFontTypes.pdf");</code></pre>
             <a href="javascript:demoFontTypes()" class="button">Run Code</a></p>
         </div>
 
         <h2><a href="#">Different text colors</a></h2>
         <div>
           <p>
-            <pre>var doc = new jsPDF();
+            <pre><code class="language-javascript">const doc = new jsPDF();
 
 doc.setTextColor(100);
 doc.text(20, 20, 'This is gray.');
@@ -186,21 +191,21 @@ doc.text(20, 50, 'This is green.');
 doc.setTextColor(0,0,255);
 doc.text(20, 60, 'This is blue.');
 
-doc.save('Test.pdf');</pre>
+doc.save('Test.pdf');</code></pre>
             <a href="javascript:demoTextColors()" class="button">Run Code</a></p>
         </div>
 
         <h2><a href="#">Font-metrics-based line sizing and split</a></h2>
         <div>
           <p>
-            <pre>var pdf = new jsPDF('p','in','letter')
+            <pre><code class="language-javascript">const pdf = new jsPDF('p','in','letter')
 , sizes = [12, 16, 20]
 , fonts = [['Times','Roman'],['Helvetica',''], ['Times','Italic']]
-, font, size, lines
-, verticalOffset = 0.5 // inches on a 8.5 x 11 inch sheet.
-, loremipsum = 'Lorem ipsum dolor sit amet, ...'
+, loremipsum = 'Lorem ipsum dolor sit amet, ...';
 
-for (var i in fonts){
+let font, size, lines, verticalOffset = 0.5 // inches on a 8.5 x 11 inch sheet;
+
+for (cons i in fonts){
     if (fonts.hasOwnProperty(i)) {
         font = fonts[i]
         size = sizes[i]
@@ -225,31 +230,31 @@ for (var i in fonts){
     }
 }
 
-pdf.save('Test.pdf');</pre>
+pdf.save('Test.pdf');</code></pre>
             <a href="javascript:demoStringSplitting()" class="button">Run Code</a></p>
         </div>
 
         <h2><a href="#">Text alignment</a></h2>
         <div>
           <p>
-            <pre>var pdf = new jsPDF('p', 'pt', 'letter');
+            <pre><code class="language-javascript">const pdf = new jsPDF('p', 'pt', 'letter');
     
-    pdf.text( 'This text is normally\raligned.', 140, 50 );
-    
-    pdf.text( 'This text is centered\raround\rthis point.', 140, 120, 'center' );
-    
-    pdf.text( 'This text is rotated\rand centered around\rthis point.', 140, 300, 45, 'center' );
-    
-    pdf.text( 'This text is\raligned to the\rright.', 140, 400, 'right' );
-    
-    pdf.text( 'This text is\raligned to the\rright.', 140, 550, 45, 'right' );
-    
-    pdf.text( 'This single line is centered', 460, 50, 'center' );
+pdf.text( 'This text is normally\raligned.', 140, 50 );
 
-    pdf.text( 'This right aligned text\r\rhas an empty line.', 460, 200, 'right' );
-    
-    
-    pdf.save('Test.pdf');</pre>
+pdf.text( 'This text is centered\raround\rthis point.', 140, 120, 'center' );
+
+pdf.text( 'This text is rotated\rand centered around\rthis point.', 140, 300, 45, 'center' );
+
+pdf.text( 'This text is\raligned to the\rright.', 140, 400, 'right' );
+
+pdf.text( 'This text is\raligned to the\rright.', 140, 550, 45, 'right' );
+
+pdf.text( 'This single line is centered', 460, 50, 'center' );
+
+pdf.text( 'This right aligned text\r\rhas an empty line.', 460, 200, 'right' );
+
+
+pdf.save('Test.pdf');</code></pre>
             <a href="javascript:demoTextAlign()" class="button">Run Code</a></p>
         </div>
 
@@ -261,7 +266,7 @@ pdf.save('Test.pdf');</pre>
         <h2><a href="#">Draw example: rectangles / squares</a></h2>
         <div>
           <p>
-            <pre>var doc = new jsPDF();
+            <pre><code class="language-javascript">const doc = new jsPDF();
 
 doc.rect(20, 20, 10, 10); // empty square
 
@@ -285,14 +290,14 @@ doc.setDrawColor(0);
 doc.setFillColor(255, 255, 255);
 doc.roundedRect(140, 20, 10, 10, 3, 3, 'FD'); //  Black square with rounded corners
 
-doc.save('Test.pdf');</pre>
+doc.save('Test.pdf');</code></pre>
             <a href="javascript:demoRectangles()" class="button">Run Code</a></p>
         </div>
 
         <h2><a href="#">Draw example: lines</a></h2>
         <div>
           <p>
-            <pre>var doc = new jsPDF();
+            <pre><code class="language-javascript">const doc = new jsPDF();
 
 doc.line(20, 20, 60, 20); // horizontal line
 
@@ -319,14 +324,14 @@ doc.line(110, 20, 110, 60);
 doc.setLineWidth(1.5);
 doc.line(115, 20, 115, 60);
 
-doc.save('Test.pdf');</pre>
+doc.save('Test.pdf');</code></pre>
             <a href="javascript:demoLines()" class="button">Run Code</a></p>
         </div>
 
         <h2><a href="#">Draw example: circles and ellipses</a></h2>
         <div>
           <p>
-            <pre>var doc = new jsPDF();
+            <pre><code class="language-javascript">const doc = new jsPDF();
 
 doc.ellipse(40, 20, 10, 5);
 
@@ -338,14 +343,14 @@ doc.setDrawColor(0);
 doc.setFillColor(255,0,0);
 doc.circle(120, 20, 5, 'FD');
 
-doc.save('Test.pdf');</pre>
+doc.save('Test.pdf');</code></pre>
             <a href="javascript:demoCircles()" class="button">Run Code</a></p>
         </div>
 
         <h2><a href="#">Draw example: triangles</a></h2>
         <div>
           <p>
-            <pre>var doc = new jsPDF();
+            <pre><code class="language-javascript">const doc = new jsPDF();
 
 doc.triangle(60, 100, 60, 120, 80, 110, 'FD');
 
@@ -354,20 +359,20 @@ doc.setDrawColor(255,0,0);
 doc.setFillColor(0,0,255);
 doc.triangle(100, 100, 110, 100, 120, 130, 'FD');
 
-doc.save('My file.pdf');</pre>
+doc.save('My file.pdf');</code></pre>
             <a href="javascript:demoTriangles()" class="button">Run Code</a></p>
         </div>
 
         <h2><a href="#">Draw example: Images</a></h2>
         <div>
           <p>
-            <pre>// Because of security restrictions, getImageFromUrl will
+            <pre><code class="language-javascript">// Because of security restrictions, getImageFromUrl will
 // not load images from other domains.  Chrome has added
 // security restrictions that prevent it from loading images
 // when running local files.  Run with: chromium --allow-file-access-from-files --allow-file-access
 // to temporarily get around this issue.
-var getImageFromUrl = function(url, callback) {
-    var img = new Image();
+const getImageFromUrl = function(url, callback) {
+    const img = new Image();
 
     img.onError = function() {
         alert('Cannot load image: "'+url+'"');
@@ -382,8 +387,8 @@ var getImageFromUrl = function(url, callback) {
 // the pdf until we actually have the image.
 // If we already had the jpeg image binary data loaded into
 // a string, we create the pdf without delay.
-var createPDF = function(imgData) {
-    var doc = new jsPDF();
+const createPDF = function(imgData) {
+    const doc = new jsPDF();
 
     // This is a modified addImage example which requires jsPDF 1.0+
     // You can check the former one at <em>examples/js/basic.js</em>
@@ -406,7 +411,7 @@ var createPDF = function(imgData) {
     doc.output('datauri');
 }
 
-getImageFromUrl('thinking-monkey.jpg', createPDF);
+getImageFromUrl('thinking-monkey.jpg', createPDF);</code>
 </pre>
             <!--a href="javascript:demoImages()" class="button">Run Code</a-->
             <!-- I'm lazy, so using eval() directly, sorry ;) [diegocr] -->
@@ -421,20 +426,20 @@ getImageFromUrl('thinking-monkey.jpg', createPDF);
         <h2><a href="#">Using a base64-encoded TTF</a></h2>
         <div>
           <p>
+            <pre><code class="language-javascript">
+//https://fonts.google.com/specimen/PT+Sans
+const PTSans = "AAEAAAAUAQA..."; //shortened. see demoUsingTTFFont in examples/js/basic.js for full base64 encoded ttffile
+const doc = new jsPDF();
 
-            <pre>
-    //https://fonts.google.com/specimen/PT+Sans
-    var PTSans = "AAEAAAAUAQA..."; //shortened. see demoUsingTTFFont in examples/js/basic.js for full base64 encoded ttffile
-    var doc = new jsPDF();
+doc.addFileToVFS("PTSans.ttf", PTSans);
+doc.addFont('PTSans.ttf', 'PTSans', 'normal');
 
-    doc.addFileToVFS("PTSans.ttf", PTSans);
-    doc.addFont('PTSans.ttf', 'PTSans', 'normal');
+doc.setFont('PTSans'); // set font
+doc.setFontSize(10);
+doc.text("А ну чики брики и в дамки!", 10, 10);
 
-    doc.setFont('PTSans'); // set font
-    doc.setFontSize(10);
-    doc.text("А ну чики брики и в дамки!", 10, 10);
-    
-    doc.save('test.pdf');</pre>
+doc.save('test.pdf');
+  </code></pre>
             <a href="javascript:demoUsingTTFFont()" class="button">Run Code</a></p>
         </div>
 
@@ -442,7 +447,13 @@ getImageFromUrl('thinking-monkey.jpg', createPDF);
     </div>
   </div>
   </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/languages/javascript.min.js" integrity="sha512-XrpvbK+zc0wErJG1VptH0H4w4zyiniHOBR35DJ1VISA+cqYxhksvqFwZk0M8lX9ylaIjTXoMYolOPb93zdrGpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    hljs.highlightAll();
+  });
+</script>
 </body>
 
 </html>
