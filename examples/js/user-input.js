@@ -1,8 +1,8 @@
-const name = prompt("What is your name?");
-const multiplier = prompt("Enter a number:");
-const number = parseInt(multiplier);
+var name = prompt("What is your name?");
+var multiplier = prompt("Enter a number:");
+var number = parseInt(multiplier);
 
-const doc = new jsPDF();
+var doc = new jsPDF();
 doc.setFontSize(22);
 doc.text(20, 20, "Questions");
 doc.setFontSize(16);

@@ -1,4 +1,4 @@
-const doc = new jsPDF();
+var doc = new jsPDF();
 
 doc.line(20, 20, 60, 20); // horizontal line
 

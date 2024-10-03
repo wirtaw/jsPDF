@@ -1,4 +1,4 @@
-const doc = new jsPDF();
+var doc = new jsPDF();
 
 // I know the proper spelling is colour ;)
 doc.setTextColor(100);

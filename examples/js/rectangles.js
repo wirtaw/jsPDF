@@ -1,4 +1,4 @@
-const doc = new jsPDF();
+var doc = new jsPDF();
 
 // Empty square
 doc.rect(20, 20, 10, 10);
