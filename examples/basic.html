@@ -1,8 +1,8 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en">
 
 <head>
-  <title>jsPDF</title>
+  <title>jsPDF basic examples</title>
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,12 +15,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js" integrity="sha512-6yoqbrcLAHDWAdQmiRlHG4+m0g/CT/V9AGyxabG8j7Jk8j3r3K6due7oqpiRMZqcYe9WM2gPcaNNxnl2ux+3tA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type="text/javascript" src="../dist/jspdf.umd.js"></script>
   <script type="text/javascript" src="js/basic.js"></script>
-
-  <script>
-    window.jsPDF = window.jspdf.jsPDF;
-    
-    
-  </script>
 </head>
 
 <body>
@@ -39,7 +33,7 @@
     
     <div class="tabs is-centered is-boxed is-medium">
       <ul>
-        <li class="is-active">
+        <li class="tab-link is-active" data-tab="tabs-basic">
           <a onclick="showTab('tabs-basic')">
             <span class="icon is-small"
               ><i class="fas fa-file" aria-hidden="true"></i
@@ -47,7 +41,7 @@
             <span>Basic elements</span>
           </a>
         </li>
-        <li>
+        <li class="tab-link" data-tab="tabs-text">
           <a onclick="showTab('tabs-text')">
             <span class="icon is-small"
               ><i class="fas fa-file-alt" aria-hidden="true"></i
@@ -55,7 +49,7 @@
             <span>Text elements</span>
           </a>
         </li>
-        <li>
+        <li class="tab-link" data-tab="tabs-graphic">
           <a onclick="showTab('tabs-graphic')">
             <span class="icon is-small"
               ><i class="fas fa-image" aria-hidden="true"></i
@@ -63,7 +57,7 @@
             <span>Graphic elements</span>
           </a>
         </li>
-        <li>
+        <li class="tab-link" data-tab="tabs-font">
           <a onclick="showTab('tabs-font')">
             <span class="icon is-small"
               ><i class="far fa-file-alt" aria-hidden="true"></i
@@ -509,10 +503,34 @@ doc.save('demoUsingTTFFont.pdf');
     </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/languages/javascript.min.js" integrity="sha512-XrpvbK+zc0wErJG1VptH0H4w4zyiniHOBR35DJ1VISA+cqYxhksvqFwZk0M8lX9ylaIjTXoMYolOPb93zdrGpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
-    
     document.addEventListener('DOMContentLoaded', function() {
+      window.jsPDF = window.jspdf.jsPDF;
       hljs.highlightAll();
     });
+
+    function showTab(tabNameActivate) {
+      const tabLinks = document.querySelectorAll('.tabs ul li');
+
+      tabLinks.forEach(tabLink => {
+        tabLink.classList.remove('is-active');
+
+        const tabContentId = tabLink.getAttribute('data-tab');
+        const tabContent = document.getElementById(tabContentId);
+        if (tabContent) {
+          tabContent.style.display = 'none';
+        }
+      });
+
+      const activeTab = document.querySelector(`.tab-link[data-tab="${tabNameActivate}"]`);
+      if (activeTab) {
+        activeTab.classList.add('is-active');
+
+        const activeTabContent = document.getElementById(tabNameActivate);
+        if (activeTabContent) {
+          activeTabContent.style.display = 'block';
+        }
+      }
+    }
   </script>
 </div>
 </body>

@@ -1,43 +1,31 @@
-<!doctype>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
 	<title>jsPDF</title>
-
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.8.17/themes/base/minified/jquery-ui.min.css" integrity="sha512-TblaD5d+Kl9aKcfTebP+dJ5VrLwPLjb7OB8jRSYdFiD9H8BvI5E3LyVxtEGqVcdHlgvEuvmBvrBZIpMuI1W33w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js" integrity="sha512-J9QfbPuFlqGD2CYVCa6zn8/7PEgZnGpM5qtFOBZgwujjDnG5w5Fjx46YzqvIh/ORstcj7luStvvIHkisQi5SKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js" integrity="sha512-JSR8j+u3VCD89ohCxBSFvRcsCXlJ2rnY6OSzqs650m4pUPbpY/Oc1I1kViV5XbETu5mWEX8/SqIcE2svDO/e5A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script type="text/javascript" src="../dist/jspdf.debug.js"></script>
-	<script type="text/javascript" src="js/basic.js"></script>
 
-	<script>
-		$(function () {
-			$("#accordion-basic, #accordion-text, #accordion-graphic").accordion({
-				autoHeight: false,
-				navigation: true
-			});
-			$("#tabs").tabs();
-			$(".button").button();
-		});
-	</script>
+	<script type="text/javascript" src="js/basic.js"></script>
 </head>
 
 <body>
-	<iframe frameborder="0" width="500" height="400"></iframe>
+	<iframe frameborder="0" width="500" height="400" class="iframe"></iframe>
 	<script>
-		$(document).ready(function () {
+		document.addEventListener('DOMContentLoaded', function() {
+			window.jsPDF = window.jspdf.jsPDF;
 
-
-			var pdf = new jsPDF('p', 'in', 'letter')
+			const pdf = new jsPDF('p', 'in', 'letter')
 				, sizes = [12, 16, 20]
 				, fonts = [['Times', 'Roman'], ['Helvetica', ''], ['Times', 'Italic']]
-				, font, size, lines
 				, margin = 0.5 // inches on a 8.5 x 11 inch sheet.
-				, verticalOffset = margin
 				, loremipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id eros turpis. Vivamus tempor urna vitae sapien mollis molestie. Vestibulum in lectus non enim bibendum laoreet at at libero. Etiam malesuada erat sed sem blandit in varius orci porttitor. Sed at sapien urna. Fusce augue ipsum, molestie et adipiscing at, varius quis enim. Morbi sed magna est, vel vestibulum urna. Sed tempor ipsum vel mi pretium at elementum urna tempor. Nulla faucibus consectetur felis, elementum venenatis mi mollis gravida. Aliquam mi ante, accumsan eu tempus vitae, viverra quis justo.\n\nProin feugiat augue in augue rhoncus eu cursus tellus laoreet. Pellentesque eu sapien at diam porttitor venenatis nec vitae velit. Donec ultrices volutpat lectus eget vehicula. Nam eu erat mi, in pulvinar eros. Mauris viverra porta orci, et vehicula lectus sagittis id. Nullam at magna vitae nunc fringilla posuere. Duis volutpat malesuada ornare. Nulla in eros metus. Vivamus a posuere libero.'
 
+
+            let verticalOffset = margin;
 			// Margins:
 			pdf.setDrawColor(0, 255, 0)
 				.setLineWidth(1 / 72)
@@ -45,12 +33,12 @@
 				.line(8.5 - margin, margin, 8.5 - margin, 11 - margin)
 
 			// the 3 blocks of text
-			for (var i in fonts) {
+			for (const i in fonts) {
 				if (fonts.hasOwnProperty(i)) {
-					font = fonts[i]
-					size = sizes[i]
+					const font = fonts[i]
+					const size = sizes[i]
 
-					lines = pdf.setFont(font[0], font[1])
+					const lines = pdf.setFont(font[0], font[1])
 						.setFontSize(size)
 						.splitTextToSize(loremipsum, 7.5)
 					// Don't want to preset font, size to calculate the lines?
@@ -63,17 +51,18 @@
 					// }
 					// Without these, .splitTextToSize will use current / default
 					// font Family, Style, Size.
-					console.log(lines);
+					// console.log(lines);
 					pdf.text(0.5, verticalOffset + size / 72, lines)
 
 					verticalOffset += (lines.length + 0.5) * size / 72
 				}
 			}
 
-			var string = pdf.output('datauristring');
+			const string = pdf.output('datauristring');
 
-			$('iframe').attr('src', string);
-
+			const iframeElements = document.getElementsByClassName('iframe');
+	
+			iframeElements[0].setAttribute('src', string);
 		});
 	</script>
 
