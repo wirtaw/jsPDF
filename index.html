@@ -13,6 +13,8 @@
 	<!-- Editor CSS -->
 	<link href="./examples/css/editor.css" rel="stylesheet">
 	<style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial, sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#333;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:absolute;display:block;top:0;right:0;width:160px;overflow:hidden;height:200px;}#forkongithub a{width:160px;position:absolute;top:15px;right:-40px;transform:rotate(45deg);-webkit-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js" integrity="sha512-J9QfbPuFlqGD2CYVCa6zn8/7PEgZnGpM5qtFOBZgwujjDnG5w5Fjx46YzqvIh/ORstcj7luStvvIHkisQi5SKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 	<body>
@@ -81,16 +83,17 @@
 		<footer>&copy; 2017-2021 James Hall, 2021 yWorks GmbH - <a href="https://parall.ax/pages/privacy-policy">Privacy Policy</a></footer>
 
 		<!-- Scripts down here -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js" integrity="sha512-J9QfbPuFlqGD2CYVCa6zn8/7PEgZnGpM5qtFOBZgwujjDnG5w5Fjx46YzqvIh/ORstcj7luStvvIHkisQi5SKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+		
 		<script type="text/javascript" src="dist/polyfills.umd.js"></script>
 		<script type="text/javascript" src="dist/jspdf.umd.js"></script>
 
 		<script type="text/javascript">
-			var jsPDF = window.jspdf.jsPDF;
-			$(document).ready(function() {
-				if(jsPDF && jsPDF.version) {
-					$('#dversion').text('Version ' + jsPDF.version);
+			const jsPDF = window.jspdf.jsPDF;
+			document.addEventListener('DOMContentLoaded', function() {
+				const dversion = document.getElementById('dversion');
+
+				if(jsPDF && jsPDF?.version && dversion) {
+					dversion.innerText = `Version ${jsPDF.version}`;
 				}
 			});
 		</script>

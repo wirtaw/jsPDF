@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>jsPDF basic examples</title>
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+  <link href="./examples/css/editorBeta.css" rel="stylesheet">
+</head>
+
+<body>
+    <a href="https://github.com/MrRio/jsPDF" target="_blank">
+        <div class="badge is-dark has-text-white is-flex is-align-items-center is-justify-content-center is-size-7" style="position: fixed;top: 15px;right: -33px;padding: 10px 20px;transform: rotate(45deg);transition: transform 0.2s ease;background-color: #000;z-index: 33;">
+            Star me on GitHub
+        </div>
+      </a>
+    <nav class="navbar">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://raw.githack.com/MrRio/jsPDF/master/">
+            <img src="https://parall.ax/parallax-2016/img/svg/jspdf-logo.svg" alt="jsPDF logo" style="min-height: 60px">
+        </a>
+    </div>
+    <div class="navbar-end mgr-medium">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a
+                class="bd-tw-button button"
+                data-social-network="Twitter"
+                data-social-action="tweet"
+                data-social-target="https://twitter.com/MrRio"
+                target="_blank"
+                href="https://twitter.com/intent/tweet?text=A library to generate PDFs in JavaScript&amp;hashtags=jsPDF&amp;url=https://github.com/parallax/jsPDF&amp;via=MrRio"
+              >
+                <span class="icon">
+                  <i class="fab fa-twitter"></i>
+                </span>
+                <span> Tweet </span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-primary" href="https://github.com/MrRio/jsPDF">
+                <span class="icon">
+                  <i class="fas fa-download"></i>
+                </span>
+                <span>Download now</span>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+  </nav>  
+  <section class="section">
+    <div class="container is-fluid"> 
+        <h1 class="title">HTML5 JavaScript PDF generation library from <a href="https://twitter.com/MrRio">@MrRio</a> at <a href="http://parall.ax">Parallax</a></h1>
+
+    </div>
+  </section>
+  <section class="section">
+    <div class="columns"> 
+     <div class="column is-half">
+        <h2 class="title">Have a play.</h2>
+
+        <p>A HTML5 client-side solution for generating PDFs. Perfect for event tickets, reports, certificates, you name it! </p>
+
+        <p><b>No servers were used in the making of this demo.</b></p>
+
+        <div class="field">
+            <label for="template">Choose example</label>
+            <div class="control">
+              <div class="template-picker select is-info is-small is-loading">
+                <select id="template" name="template">
+                    <option>Hold your horses...</option>
+                </select>
+              </div>
+            </div>
+        </div>
+        
+        <div id="editor" class="editor" style="width: 100%;"></div>
+
+        <div class="controls" style="width: 100%;">
+            <div class="pull-right">
+                <!--<a href="#" class="button is-primary">Download Your Code</a>-->
+                <a href="#" class="button is-primary download-pdf is-small is-responsive">Download PDF</a>
+            </div>
+
+            <label class="checkbox-inline">
+                <input type="checkbox" id="auto-refresh" checked="checked"> Auto refresh on changes?
+            </label>
+            <a href="#" class="run-code button is-success" style="display:none">Run Code</a>
+
+            <div class="alert" style="display:none">
+                Auto refresh disabled for this
+            </div>
+
+        </div>
+     </div>
+     <div class="column is-half">
+        <div id="preview-pane" style="height: 650px;position:relative; z-index:999"></div>
+     </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="section-heading">
+        <p class="has-text-centered">
+            &copy; 2017-2021 James Hall, 2021 yWorks GmbH - <a href="https://parall.ax/pages/privacy-policy">Privacy Policy</a>
+        </p>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="dist/polyfills.umd.js"></script>
+  <script type="text/javascript" src="dist/jspdf.umd.js"></script>
+
+  <script>
+    (function() {
+        const jsPDF = window.jspdf.jsPDF;
+        document.addEventListener('DOMContentLoaded', function() {
+            const dversion = document.getElementById('dversion');
+
+            if(jsPDF && jsPDF?.version && dversion) {
+                dversion.innerText = `Version ${jsPDF.version}`;
+            }
+        });
+    }());
+  </script>
+
+  <!-- Code editor -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.min.js" integrity="sha512-xylzfb6LZn1im1ge493MNv0fISAU4QkshbKz/jVh6MJFAlZ6T1NRDJa0ZKb7ECuhSTO7fVy8wkXkT95/f4R4nA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/theme-github.min.js" integrity="sha512-6PQOyKN8ulKmC/NQlWnhk2Upjza1Lj9pbYD/6+gNuNG+U28jW/x9iJQJuiQkfQAFggY1sToW9va3vY4xfpsJaA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/mode-javascript.min.js" integrity="sha512-S5TwCMItd+YdNiTApqHt2QkA2sd90dgpWxHoYhulWm+Nb/i9GppPsve8IOraaTj56uNJgIOtmFQFggL1PuKkWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Scripts in development mode -->
+  <script type="text/javascript" src="./examples/js/pdfobject.min.js"></script>
+  <script type="text/javascript" src="./examples/js/editorBeta.js"></script>
+</body>
+</html>
